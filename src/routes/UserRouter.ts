@@ -34,21 +34,24 @@ useRouter.get("/", async (req, res) => {
   res.status(501).jsonp(getAll);
 });
 
-// get one user
 useRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   const userId = await db.user.findUnique({
     where: {
       id: +id
+    },
+    include: {
+      tweets: true,
     }
-  })
+  });
+
   if (!userId) {
-    return res.status(401).json({ error: "Invalid ID" })
+    return res.status(401).json({ error: "Invalid ID" });
   }
-  res.status(501).jsonp(userId)
+
+  res.status(501).jsonp(userId);
 });
 
-// update one user
 useRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { bio, name, username, image } = req.body;
@@ -70,7 +73,6 @@ useRouter.put("/:id", async (req, res) => {
   }
 });
 
-// delete user
 useRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
   await db.user.delete({

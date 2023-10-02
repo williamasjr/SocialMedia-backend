@@ -23,7 +23,7 @@ tweetRouter.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: "UserId not found" })
   }
-})
+});
 
 tweetRouter.get("/", async (req, res) => {
   const getAll = await db.tweet.findMany({
@@ -39,10 +39,14 @@ tweetRouter.get("/:id", async (req, res) => {
   const tweetId = await db.tweet.findUnique({
     where: {
       id: +id
+    },
+    include: {
+      user: true
     }
+
   });
   if (!tweetId) {
-    return res.status(401).json({ error: "Invalid ID" })
+    return res.status(404).json({ error: "Tweet not found" })
   }
   res.status(200).jsonp(tweetId);
 });
