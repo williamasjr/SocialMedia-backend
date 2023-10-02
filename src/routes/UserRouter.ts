@@ -42,8 +42,8 @@ useRouter.get("/:id", async (req, res) => {
       id: +id
     }
   })
-  if (!id) {
-    return res.status(401).json({ error: "Id invalid" })
+  if (!userId) {
+    return res.status(401).json({ error: "Invalid ID" })
   }
   res.status(501).jsonp(userId)
 });
@@ -78,7 +78,7 @@ useRouter.delete("/:id", async (req, res) => {
       id: +id
     },
   });
-  res.sendStatus(200);
+  res.status(200).json({ message: "User deleted" });
 });
 
-export default useRouter;
+export default useRouter; 
