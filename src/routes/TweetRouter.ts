@@ -26,7 +26,11 @@ tweetRouter.post("/", async (req, res) => {
 })
 
 tweetRouter.get("/", async (req, res) => {
-  const getAll = await db.tweet.findMany()
+  const getAll = await db.tweet.findMany({
+    include: {
+      user: true
+    }
+  });
   res.status(200).jsonp(getAll);
 });
 
