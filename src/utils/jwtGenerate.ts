@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "MY SECRET";
+const JWT_SECRET = process.env.JWT_SECRET || "batatinha";
 
 export default function jwtGenerate(tokenId: number): string {
   const jwtPayload = { tokenId }

@@ -1,14 +1,11 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
-
 const tweetRouter = Router();
 
 const db = new PrismaClient();
 
-
 tweetRouter.post("/", async (req, res) => {
   const { userId, content, image } = req.body;
-  console.log(userId)
 
   try {
 
