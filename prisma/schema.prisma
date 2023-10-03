@@ -26,12 +26,12 @@ model User {
 model Token {
   id         Int      @id @default(autoincrement())
   type       String
-  emailToken String?
+  emailToken String?  @unique
   valid      Boolean  @default(true)
   expiration DateTime
 
   userId Int
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,7 +44,7 @@ model Tweet {
   impression Int    @default(0)
 
   userId Int
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
